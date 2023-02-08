@@ -17,5 +17,8 @@ use App\Http\Controllers\HospitalController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/token', function () {
+    return csrf_token(); 
+});
 
 Route::post('/register', [HospitalController::class, 'register']);
