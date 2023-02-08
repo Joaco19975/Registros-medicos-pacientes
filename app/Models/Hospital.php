@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 
-class Hospitals extends Model
+class Hospital extends Model
 {
     use HasFactory;
 
