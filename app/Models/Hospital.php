@@ -2,11 +2,17 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Medicine;
+use App\Models\Patient;
+use App\Models\Patient_hospital_medicine;
+
+  
 
 class Hospital extends Model
 {
@@ -41,6 +47,20 @@ class Hospital extends Model
                 $token = $hospital->createToken('main')->plainTextToken;
             
         }
+    }
+    
+
+
+    public function medicines(){
+        return $this->hasMany(Medicine::class);
+    }
+
+    public function patients(){
+        return $this->hasMany(Patient::class);
+    }
+
+    public function patient_hospital_medicines(){
+        return $this->hasMany(Patient_hospital_medicine::class);
     }
 
 

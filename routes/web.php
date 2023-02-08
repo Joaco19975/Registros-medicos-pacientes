@@ -20,3 +20,6 @@ Route::get('/', function () {
 
 
 Route::post('/register', [HospitalController::class, 'register']);
+
+
+
