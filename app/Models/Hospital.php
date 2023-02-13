@@ -23,6 +23,9 @@ class Hospital extends Model
     
     public function register(array $data){
 
+
+
+/*
         $validator = Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => [
@@ -48,9 +51,10 @@ class Hospital extends Model
                 $token = $hospital->createToken('main')->plainTextToken;
             
         }
+        */
     }
 
-    public function login(Request $request){
+    public function login(array $request){
 
         $credentials = $request->validate([
             'email' => 'required|email|string|exists:hospitals,email',
