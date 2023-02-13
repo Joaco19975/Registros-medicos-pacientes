@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Medicine;
+use App\Models\Patient;
+use App\Models\Patient_hospital_medicine;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,8 +25,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
     ];
+ 
 
     /**
      * The attributes that should be hidden for serialization.
@@ -38,7 +45,18 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+  
+
+     public function medicines(){
+        return $this->hasMany(Medicine::class);
+    }
+
+    public function patients(){
+        return $this->hasMany(Patient::class);
+    }
+
+    public function patient_hospital_medicines(){
+        return $this->hasMany(Patient_hospital_medicine::class);
+    }
+
 }

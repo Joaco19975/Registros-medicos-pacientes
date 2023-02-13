@@ -66,13 +66,12 @@ password_confirmation: ''
 }
 
 function register(ev){
-ev.preventDefault();
-
-store.dispatch('register', user)
-      .then(() => {
+  ev.preventDefault();
+  store.dispatch('register', user)
+    .then((res) => {
         router.push({
           name:'Dashboard',
-      })
+        })
     })
 }
 

@@ -20,39 +20,39 @@ const routes = [
   },
 
   {
-    path: "/auth",
-    redirect: "/login",
-    name: "Auth",
+    path: '/auth',
+    redirect: '/login',
+    name: 'Auth',
     component: AuthLayout,
-    meta: {isGuest: true},
+    meta:{isGuest: true},
     children: [
       {
-        path: "/login",
-        name: "Login",
+        path: '/login',
+        name: 'Login',
         component: Login,
       },
       {
-        path: "/register",
-        name: "Register",
-        component: Register,
+        path: '/register',
+        name: 'Register',
+        component: Register
       },
-    ],
+    ]
   },
 
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !store.state.user.token) {
-    next({ name: "Login" });
-  } else if (store.state.user.token && to.meta.isGuest) {
-    next({ name: "Dashboard" });
-  } else {
-    next();
+  if(to.meta.requiresAuth && !store.state.user.token){
+    next({name: 'Login'});
+  }else if(store.state.user.token && (to.meta.isGuest)){
+    next({name:'Dashboard'});
+  }else{
+    next(); 
   }
 });
 

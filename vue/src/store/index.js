@@ -9,7 +9,7 @@ const store = createStore({
     state:{
         user:{
             data:{},
-            token: sessionStorage.getItem('TOKEN'),
+            token:sessionStorage.getItem('TOKEN'),
         }
     },
     getters:{},

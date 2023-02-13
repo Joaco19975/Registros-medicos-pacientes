@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Hospital;
+use App\Models\User;
 use App\Models\Patient;
 
 class HospitalController extends Controller
@@ -67,7 +67,7 @@ class HospitalController extends Controller
 
     public function login(Request $request){
     $credentials = $request->validate([
-            'email' => 'required|email|string|exists:hospitals,email',
+            'email' => 'required|email|string|exists:users,email',
             'password' => [
                 'required'
             ],

@@ -19,7 +19,7 @@ use App\Http\Controllers\HospitalController;
 });*/
 
 
-Route::post('/register', [HospitalController::class, 'register'])->name('register');
+Route::post('/register', [HospitalController::class, 'register']);
 Route::post('/login', [HospitalController::class, 'login']);
 
 

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_hospital')->references('id')->on('hospitals');    
+            $table->foreignId('id_hospital')->references('id')->on('users');    
             $table->string('fullname')->nullable();
             $table->string('sex');            
             $table->string('dni')->nullable();
