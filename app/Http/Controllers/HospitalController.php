@@ -43,7 +43,7 @@ class HospitalController extends Controller
 
     public function register(Request $request){
        
-        $hospital = new Hospital;
+        $hospital = new Hospital();
         $datos = $request->all();
         $hospital->register($datos);
     }

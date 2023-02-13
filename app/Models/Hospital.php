@@ -4,10 +4,11 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-//use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Medicine;
 use App\Models\Patient;
 use App\Models\Patient_hospital_medicine;
@@ -47,6 +48,36 @@ class Hospital extends Model
                 $token = $hospital->createToken('main')->plainTextToken;
             
         }
+    }
+
+    public function login(Request $request){
+
+        $credentials = $request->validate([
+            'email' => 'required|email|string|exists:hospitals,email',
+            'password' => [
+                'required'
+            ],
+            'remember' => 'boolean'
+        ]);
+
+        $remember = $credentials['remember'] ?? false;
+        unset($credentials['remember']);
+
+        if(!Auth::attempt($credentials, $remember)){
+            return response ([
+                'error' => 'The Provided credentials are not correct'
+
+            ], 422);
+        }
+
+        $user = Auth::user();
+        $token = $user->createToken('main')->plainTextToken;
+
+        return response([
+            'user' => $user,
+            'token' => $token
+        ]);
+
     }
     
 

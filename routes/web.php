@@ -14,12 +14,13 @@ use App\Http\Controllers\HospitalController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 
-Route::post('/register', [HospitalController::class, 'register']);
+Route::post('/register', [HospitalController::class, 'register'])->name('register');
+Route::post('/login', [HospitalController::class, 'login']);
 
 
 
