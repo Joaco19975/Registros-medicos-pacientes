@@ -18,8 +18,41 @@
                     <label for="fullname" class="block text-sm font-medium text-gray-700">
                         Fullname
                     </label>
-                    <input type="text" name="fullname" id="fullname" v-model="model.fullname"
-                    autocomplete="medicine_name"
+                    <input type="text" name="fullname" id="fullname" v-model="fullname"
+                    autocomplete="fullname"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500
+                    block w-full shadow-sm sm:text-sm border-gray-300 rounded-md
+                    "
+                    >
+                </div>
+                <div>
+                    <label for="fullname" class="block text-sm font-medium text-gray-700">
+                        Sex
+                    </label>
+                    <input type="text" name="sex" id="sex" v-model="sex"
+                    autocomplete="sex"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500
+                    block w-full shadow-sm sm:text-sm border-gray-300 rounded-md
+                    "
+                    >
+                </div>
+                <div>
+                    <label for="fullname" class="block text-sm font-medium text-gray-700">
+                        Dni
+                    </label>
+                    <input type="text" name="dni" id="dni" v-model="dni"
+                    autocomplete="dni"
+                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500
+                    block w-full shadow-sm sm:text-sm border-gray-300 rounded-md
+                    "
+                    >
+                </div>
+                <div>
+                    <label for="fullname" class="block text-sm font-medium text-gray-700">
+                        Birthdate
+                    </label>
+                    <input type="date" name="birth_date" id="birth_date" v-model="birth_date"
+                    autocomplete="birth_date"
                     class="mt-1 focus:ring-indigo-500 focus:border-indigo-500
                     block w-full shadow-sm sm:text-sm border-gray-300 rounded-md
                     "
@@ -33,28 +66,69 @@
 
 </template>
 
-<script setup>
+<script>
 import store from '../store';
 import {ref} from "vue";
-import {useRoute} from "vue-router";
+import {routerKey, useRoute} from "vue-router";
 import PageComponent from "../components/PageComponent.vue";
-
-const route = useRoute();
-
-//Create empty medicine
-let model = ref({
-    fullname: "",
-    type: "",
-    stock: 0,
-    expiration: null
-
-});
+import axiosClient from '../axios';
 
 /*
-if (route.params.id){
-    model.value = 
-}
-*/
+
+Textos completos
+id	
+id_hospital	
+fullname	
+sex	
+dni	
+syntoms	
+birth_date	
+created_at	
+updated_at
+
+*/ 
+    export default {  
+        mounted() {  
+            console.log('Component mounted.')  
+        },  
+        data() {  
+            return {  
+              fullname: '',  
+              sex: '',  
+              dni: '' ,
+              birth_date: ''
+            };  
+        },  
+        methods: {  
+            savePatient(e) {  
+                e.preventDefault();  
+                let currentObj = this;  
+                axiosClient.post('/medicine', {  
+                    name: this.fullname,  
+                    type: this.sex,
+                    stock: this.dni,
+                    expiration: this.birth_date 
+                })  
+                .then(function (response) {  
+                    return response.data, this.clear();  
+                })  
+                .catch(function (error) {  
+                    return error;  
+                });  
+            }  
+        },
+        clear(){
+            let currentObj = this;
+            return [
+                this.fullname = '',
+                this.sex = '',
+                this.dni = '',
+                this.birth_date = ''
+            ]
+
+        }
+
+    }  
 
 </script>
 

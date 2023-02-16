@@ -2,7 +2,10 @@
 <template>
     <PageComponent>
       <template v-slot:header>
-        <div class="flex justify-between items-center">
+        
+   </template>
+
+   <div class="flex justify-between items-center">
         <h1 class="text-3xl font-bold text-gray-900">Patients</h1>
         <router-link
         :to="{name: 'PatientCreate'}"
@@ -26,7 +29,6 @@
         </router-link>
   
       </div>
-   </template>
   
     <div class="flex flex-col">
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -55,24 +57,24 @@
             </thead>
   
             <tbody>
-              <tr class="border-b" v-for="patient in patients" :key="patient.id">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"> {{ patient.id}}</td>
+              <tr class="border-b" v-for="dato in datos" :key="dato.id">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"> {{ dato.id}}</td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ patient.fullname}}
+                  {{ dato.fullname}}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ patient.sex}}
+                  {{ dato.sex}}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ patient.dni}}
+                  {{ dato.dni}}
                 </td>
               
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                  {{ patient.birth_date}}
+                  {{ dato.birth_date}}
                 </td>
                 <div class="flex justify-between items-center mt-3">
                   <router-link
-                  :to="{name:'PatientView', params:{id: patient.id}}"
+                  :to="{name:'PatientView', params:{id: dato.id}}"
                   class="flex py-2 px-4 border border-transparent text-sm rounded-md text-white bg-indigo-600
                   hover:bg-indigo-700
                   focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
@@ -86,9 +88,9 @@
   
                   </router-link>
                   <button
-                  v-if="patient.id"
+                  v-if="dato.id"
                   type="button"
-                  @click="deleteMedicine(patient)"
+                  @click="deletePatient(dato)"
                   class="h-8
                          w-8 
                          flex
@@ -129,13 +131,13 @@
   
     </template>
     
-    <script setup>
+    <script>
     import store from "../store";
     import {computed} from "vue";
     import PageComponent from '../components/PageComponent.vue';
     import axiosClient from '../axios';
   
-    function deleteMedicine(dato){
+    function deletePatient(dato){
   
       if(confirm('Are you sure you want to delete this medicine? operation cant be undone !!')){
         //delete medicine
@@ -147,7 +149,7 @@
   
   
   
-    /*  
+    
     export default {
               data() {
                       return {
@@ -155,18 +157,44 @@
                       }
                   },
               mounted() {
-                  axiosClient.get('/hospital/medicines')
+                  axiosClient.get('/hospital/patients')
                       .then(response => {
                           this.datos = response.data;
                       }).catch(error => {
                               console.log(error);
                           });
+              },
+              methods:{
+              deletePatient(dato){
+                if(confirm('Are you sure you want to delete this medicine? operation cant be undone !!')){
+                    //delete medicine
+
+                  }
+              
+                    return axiosClient.delete(`/patient/${dato.id}`).then((res) => {
+                      return this.getPatients()
+                      
+                     // return res;
+                    });
+                  
+
+              },
+
+              getPatients(){
+                axiosClient.get('/hospital/patient')
+                    .then(response => {
+                        this.datos = response.data;
+                    }).catch(error => {
+                            console.log(error);
+                        });
               }
+
+            }
       } 
-  */
+  
   
     
-    const patients = computed(() => store.state.patients);
+   // const patients = computed(() => store.state.patients);
     
   
     </script>

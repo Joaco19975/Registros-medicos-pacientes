@@ -157,8 +157,25 @@
                     //delete medicine
 
                   }
+              
+                    return axiosClient.delete(`/medicine/${dato.id}`).then((res) => {
+                      return this.getMedicines()
+                      
+                     // return res;
+                    });
+                  
 
+              },
+
+              getMedicines(){
+                axiosClient.get('/hospital/medicines')
+                    .then(response => {
+                        this.datos = response.data;
+                    }).catch(error => {
+                            console.log(error);
+                        });
               }
+
             }
     } 
 

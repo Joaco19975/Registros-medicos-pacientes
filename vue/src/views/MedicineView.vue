@@ -3,7 +3,7 @@
         <template v-slot:header>
             <div class="flex items-center justify-between">
                 <h1 class="text-3x1 font-bold text-gray-900">
-                    {{ model.id ? model.name: "Create a Medicine" }}
+                    {{ model.id ? model.name: "Create a Medicine"  }}
                 </h1>
             </div>
 
@@ -121,7 +121,7 @@ import axiosClient from '../axios';
                     expiration: this.expiration  
                 })  
                 .then(function (response) {  
-                    return response.data, clear();  
+                    return response.data, this.clear();  
                 })  
                 .catch(function (error) {  
                     return error;  
