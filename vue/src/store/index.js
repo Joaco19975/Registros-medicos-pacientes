@@ -114,7 +114,14 @@ const store = createStore({
                     commit('setUser', data);
                     return data;
                   })
-        }
+        },
+        logout({commit}) {
+            return axiosClient.post('/logout')
+              .then(response => {
+                commit('logout')
+                return response;
+              })
+          },
      },
     mutations:{
         saveSurvey: (state,medicine) => {
@@ -128,11 +135,14 @@ const store = createStore({
                 return m;
             })
 
-        },
+        }, 
+        
         logout: (state) => {
             state.user.token = null;
             state.user.data = {};
-        },
+            sessionStorage.removeItem("TOKEN");
+          },
+        
         setUser: (state, userData) => {
             state.user.token = userData.token;
             state.user.data = userData.user;

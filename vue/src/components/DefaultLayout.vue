@@ -76,10 +76,12 @@
           
             </div>
             <div class="mt-3 space-y-1 px-2">
-              <DisclosureButton  as="a" @click="logout" 
-              class="block rounded-md px-3
-               py-2 text-base font-medium text-gray-400 hover:bg-gray-700
-                hover:text-white cursor-pointer">Sign out</DisclosureButton>
+              <DisclosureButton
+              as="a"
+              @click="logout"
+              class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 cursor-pointer"
+              >Sign out
+            </DisclosureButton>
             </div>
           </div>
         </DisclosurePanel>
@@ -119,13 +121,13 @@ export default {
       const router = useRouter();
 
 
-      function logout(){
-        store.commit('logout');
+      function logout() {
+      store.dispatch("logout").then(() => {
         router.push({
-          name:'Login'
-        })
-
-      }
+          name: "Login",
+        });
+      });
+    }
         return {
             user: computed(() => store.state.user.data),
             navigation,

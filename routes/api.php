@@ -27,7 +27,9 @@ Route::middleware('auth:sanctum')->group( function () {
 
     Route::resource('/medicine', MedicineController::class);
     Route::resource('/patient', PatientController::class);
+
     Route::post('/logout', [AuthController::class, 'logout'] );
+
     
     Route::get('/hospital/patients', [AuthController::class, 'getPatientsHospital']);
     Route::get('/hospital/medicines', [AuthController::class, 'getMedicinesHospital']);
@@ -35,6 +37,7 @@ Route::middleware('auth:sanctum')->group( function () {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
 
 
 
