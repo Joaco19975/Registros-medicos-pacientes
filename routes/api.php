@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\PatientController;
 
 
 
@@ -25,6 +26,7 @@ Route::middleware('auth:sanctum')->group( function () {
     });
 
     Route::resource('/medicine', MedicineController::class);
+    Route::resource('/patient', PatientController::class);
     Route::post('/logout', [AuthController::class, 'logout'] );
     
     Route::get('/hospital/patients', [AuthController::class, 'getPatientsHospital']);

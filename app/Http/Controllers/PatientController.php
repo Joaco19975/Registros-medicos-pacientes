@@ -27,7 +27,7 @@ class PatientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMedicineRequest $request)
+    public function store(StorePatientRequest $request)
     {
       $result = Patient::create($request->validated());
 
