@@ -3,6 +3,11 @@ import HomeView from '../views/HomeView.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue'
+import Medicines from '../views/Medicines.vue'
+import MedicineView from '../views/MedicineView.vue'
+import PatientView from '../views/PatientView.vue'
+import Patients from '../views/Patients.vue'
+import PagePrincipal from '../views/PagePrincipal.vue'
 import DefaultLayout from '../components/DefaultLayout.vue'
 import AuthLayout from '../components/AuthLayout.vue'
 import store from '../store';
@@ -15,6 +20,15 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: "/dashboard", name: "Dashboard", component: Dashboard },
+      { path: "/hospital/medicines",name: 'Medicines', component: Medicines },
+      { path:"/medicine/create", name:"MedicineCreate", component: MedicineView },
+      { path:"/medicine/:id", name:"MedicineView", component: MedicineView },
+      { path: "/hospital/patients",name: 'Patients', component: Patients },
+      { path:"/patient/create", name:"PatientCreate", component: PatientView },
+      { path:"/patient/:id", name:"PatientView", component: PatientView },
+     
+
+      
 
     ],
   },
@@ -37,6 +51,12 @@ const routes = [
         component: Register
       },
     ]
+  },
+ 
+  {
+    path: "/principal",
+    name: 'PagePrincipal',
+    component: PagePrincipal
   },
 
 ];

@@ -7,9 +7,11 @@ use App\Models\User;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Auth;
 
-class HospitalController extends Controller
+
+class AuthController extends Controller
 {
     // index, show y destroy.
+         
  
 
     public function index(){
@@ -17,16 +19,25 @@ class HospitalController extends Controller
       return  $patient->hospital;
       */
 
-      return Hospital::all();
+  
 
     }
 
-    public function patientsHospital(){
-       // $escritores = Writer::with('articles')->get();
+    public function getMedicinesHospital(){
+            $id = Auth::id();
+            $hospital = User::find($id);
+            $medicine = $hospital->medicines;
+           
+            return response()->json($medicine);
+    }
 
-        $patients = Patient::with('hospital')->get();
-        
-        return $patients;
+
+    public function getPatientsHospital(){
+        $id = Auth::id();
+        $hospital = User::find($id);
+        $patients = $hospital->patients;
+
+        return response()->json($patients);
     }
 
     public function hospitalsPatient(){
@@ -93,4 +104,16 @@ class HospitalController extends Controller
             'token' => $token
         ]);
     }
+
+    public function logout(){
+        $user = Auth::user();
+
+        $user->currentAccessToken()->delete();
+
+        return response([
+            'success' => true,
+
+        ]);
+    }
+    
 }

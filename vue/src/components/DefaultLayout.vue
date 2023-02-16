@@ -1,6 +1,5 @@
 <template>
-    <div class="min-h-full" style="min-height: 100%; width: 205%; padding:0; margin:0;,
-    height: 100%;">
+    <div class="min-h-full">
       <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-16 items-center justify-between">
@@ -58,7 +57,12 @@
   
         <DisclosurePanel class="md:hidden">
           <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-            <router-link v-for="item in navigation" :key="item.name" as="a" :to="item.to" active-class="'bg-gray-900 text-white'" :class="[this.$route.name === item.to.name ? '' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block px-3 py-2 rounded-md text-base font-medium']" >{{ item.name }}</router-link>
+            <router-link v-for="item in navigation" :key="item.name" 
+             :to="item.to" active-class="'bg-gray-900 text-white'" 
+             :class="[this.$route.name === item.to.name ? '' : 
+             'text-gray-300 hover:bg-gray-700 hover:text-white',
+              'block px-3 py-2 rounded-md text-base font-medium']" >
+              {{ item.name }}</router-link>
           </div>
           <div class="border-t border-gray-700 pt-4 pb-3">
             <div class="flex items-center px-5">
@@ -97,7 +101,8 @@
 
   const navigation = [
     { name: 'Dashboard', to:{name: 'Dashboard'} },
-   // { name: 'Surveys', to:{name:'Surveys'} },
+    { name: 'Medicines', to:{name:'Medicines'} },
+    { name: 'Patients', to:{name:'Patients'} },
  
   ]
 

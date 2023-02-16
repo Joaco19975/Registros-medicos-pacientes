@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +19,11 @@ use App\Http\Controllers\HospitalController;
 });*/
 
 
-Route::post('/register', [HospitalController::class, 'register']);
-Route::post('/login', [HospitalController::class, 'login']);
+/*Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/hospital/pacientes', [AuthController::class, 'getPatientsHospital']);
+Route::get('/hospital/medicines', [AuthController::class, 'getMedicinesHospital']);
+*/
 
 
 

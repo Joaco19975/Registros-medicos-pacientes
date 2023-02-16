@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Hospital;
+use App\Models\User;
 use App\Models\Patient_hospital_medicine;
 
 class Patient extends Model
@@ -15,7 +15,7 @@ class Patient extends Model
 
 
     public function hospital(){
-        return $this->belongsTo(Hospital::class, 'id_hospital');
+        return $this->belongsTo(User::class);
     }
 
     public function patient_hospital_medicines(){

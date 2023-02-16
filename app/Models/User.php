@@ -46,13 +46,16 @@ class User extends Authenticatable
      * @var array<string, string>
      */
   
+     public function misDatos(){
+        return Auth::user();
+     }
 
      public function medicines(){
-        return $this->hasMany(Medicine::class);
-    }
+        return $this->hasMany(Medicine::class, 'id_hospital');
+     }
 
     public function patients(){
-        return $this->hasMany(Patient::class);
+        return $this->hasMany(Patient::class, 'id_hospital');
     }
 
     public function patient_hospital_medicines(){
