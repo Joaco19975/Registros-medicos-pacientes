@@ -14,8 +14,7 @@ import store from '../store';
 
 const routes = [
   {
-    path: "/",
-    redirect: "/dashboard",
+    path: "/dashboard",
     component: DefaultLayout,
     meta: { requiresAuth: true },
     children: [
@@ -54,7 +53,7 @@ const routes = [
   },
  
   {
-    path: "/principal",
+    path: "/",
     name: 'PagePrincipal',
     component: PagePrincipal
   },

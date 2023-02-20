@@ -77,7 +77,7 @@
       <main>
         <div class="relative px-6 lg:px-8">
           <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-            
+
             <div class="text-center">
               <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">For the world we want.</h1>
               <h2  class="text-4xl">We offer hospitals a web application for the control and registration of patients, medicines, and the control of medicines given to each patient</h2>
@@ -101,17 +101,120 @@
           </div>
         </div>
       </main>
+      
     </div>
-  </template>
+    <div class="contact-tittle">
+      <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Contact us</h1>
+    </div>
+    <div class="contact-container">
+      <div class="manage-img">
+        <a href=""><img src="../assets/gmail.png" alt="Gmail"></a>
+        <a href=""><img src="../assets/whatsapp.png" alt="Whatsapp"></a>
+        <a href=""><img src="../assets/facebook.png" alt="Facebook"></a>
+        <a href=""><img src="../assets/instagram.png" alt="Instagram"></a>
+      </div>
+    </div>
+    <div class="img-container">
+      <img src="../assets/MentalHealthy.png" alt="MentalHealthy" >
+    </div>
+    <div class="mt-10 flex items-center justify-center gap-x-6">
+      <button class="rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" style="height: 70px;width: 140px;font-size: x-large;">Donate</button>
+    </div>
+    <div class="tittle-map">
+      <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Where are us?</h1>
+    </div>
+    <div class="map-container">
+      <div class="scuare">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0167132768506!2d-58.383759084293054!3d-34.60373888045936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4aa9f0a6da5edb%3A0x11bead4e234e558b!2sObelisco!5e0!3m2!1ses!2sar!4v1676675724115!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>    </div>
+      </div>
+</template>
+<style scoped>
+
+  .contact-tittle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 70px;
+  }
+
+  .contact-container{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 70px;
+  }
+
+  .manage-img>img{
+    object-fit: cover;
+  }
+
+  .manage-img>a{
+    display: flex;
+    object-fit: cover;
+    height: 100%;
+    width: 100px;
+  }
+
+  .manage-img{
+    display: flex;
+    margin: auto;
+    height: 100px;
+    width: 800px;
+    justify-content: space-around;
+  }
+  .img-container{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 50px 0px;
+    height: 600px;
+    width: 100vw;
+    margin: auto;
+    background-color: #4e46e594;
+  }
+
+  .button-container{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .tittle-map{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 50px;
+    height: 200px;
+  }
+
+  .map-container{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 50px
+  }
+
+  .scuare{
+    border: 1px black solid;
+    padding: 4px;
+    border-radius: 15px;
+    box-shadow: 0px 3px 5px rgba(15,15,15,.5);
+  }
+
+</style>
   
-  <script setup>
+<script setup>
   import { ref } from 'vue'
   import { Dialog, DialogPanel } from '@headlessui/vue'
   import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
-  
+
   const navigation = [
     { name: 'Company', href: '#' },
   ]
-  
+
   const mobileMenuOpen = ref(false)
-  </script>
+</script>
