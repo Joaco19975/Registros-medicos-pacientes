@@ -30,6 +30,9 @@ Route::middleware('auth:sanctum')->group( function () {
 
     Route::post('/logout', [AuthController::class, 'logout'] );
 
+    Route::post('/registration', [AuthController::class, 'postRegistration'] );
+    Route::get('/registrations', [AuthController::class, 'getRegistration'] );
+
     
     Route::get('/hospital/patients', [AuthController::class, 'getPatientsHospital']);
     Route::get('/hospital/medicines', [AuthController::class, 'getMedicinesHospital']);

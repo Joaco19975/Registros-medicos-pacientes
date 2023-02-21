@@ -7,6 +7,8 @@ import Medicines from '../views/Medicines.vue'
 import MedicineView from '../views/MedicineView.vue'
 import PatientView from '../views/PatientView.vue'
 import Patients from '../views/Patients.vue'
+import Registration from '../views/Registration.vue'
+import RegistrationView from '../views/RegistrationView.vue'
 import PagePrincipal from '../views/PagePrincipal.vue'
 import DefaultLayout from '../components/DefaultLayout.vue'
 import AuthLayout from '../components/AuthLayout.vue'
@@ -26,6 +28,9 @@ const routes = [
       { path: "/hospital/patients",name: 'Patients', component: Patients },
       { path:"/patient/create", name:"PatientCreate", component: PatientView },
       { path:"/patient/:id", name:"PatientView", component: PatientView },
+      {path:"/hospital/registration", name:"Registration", component: Registration},
+      {path:"/hospital/registration/create", name:"RegistrationCreate", component: RegistrationView},
+      {path:"/hospital/registration/:id", name:"RegistrationView", component: RegistrationView}
      
 
       

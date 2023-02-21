@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Patient;
+use App\Models\Patient_hospital_medicine;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -20,6 +21,34 @@ class AuthController extends Controller
       */
 
   
+
+    }
+    
+ 
+
+    public function getRegistration(){
+
+        $id = Auth::id();
+        $hospital = User::find($id);
+
+        $registrations = $hospital->patient_hospital_medicines;
+       
+        
+        return response()->json($registrations);
+    }
+
+    public function postRegistration(Request $request){
+
+        $create = Patient_hospital_medicine::create([
+                       
+            'id_hospital' => Auth::id(),
+            'id_patient' => $request->id_patient,
+            'id_medicine' => $request->id_medicine,
+            'syntoms' => $request->syntoms,
+            'name_patient' => $request->name_patient,
+            'name_medicine' => $request->name_medicine
+
+        ]);
 
     }
 
