@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
 
     public function patient_hospital_medicines(){
-        return $this->hasMany(Patient_hospital_medicine::class);
+        return $this->hasMany(Patient_hospital_medicine::class, 'id_hospital');
     }
 
 }

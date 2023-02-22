@@ -1,16 +1,6 @@
 import {createStore} from 'vuex';
 import axiosClient from '../axios';
-/*
-Textos completos
-id	
-id_hospital	
-name	
-type	
-stock	
-expiration	
-created_at	
-updated_at
-*/
+
 const tmpPatients = [
     
         {
@@ -21,12 +11,10 @@ const tmpPatients = [
             birth_date:"1997-09-09",
            
         },
-
-
-
     
 ]
 const tmpMedicines = [
+
     {
         id:14,
         id_hospital:4,

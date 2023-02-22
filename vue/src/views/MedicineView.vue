@@ -9,7 +9,7 @@
 
         </template>
         <pre>{{ model }}</pre>
-        <form @submit.prevent="saveMedicine">
+        <form  ref="form" @submit.prevent="saveMedicine">
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
 
@@ -98,46 +98,54 @@ import {routerKey, useRoute} from "vue-router";
 import PageComponent from "../components/PageComponent.vue";
 import axiosClient from '../axios';
 
+const route = useRoute();
+
     export default {  
         mounted() {  
-            console.log('Component mounted.')  
+            console.log('Component mounted.');
+            console.log((this.$route.params.id));
+          
+              
         },  
         data() {  
             return {  
-              name: '',  
-              type: '',  
-              stock: '' ,
-              expiration: null  
+                name: '',
+                type: '',
+                stock: '',
+                expiration: null
+             
+                
             };  
         },  
         methods: {  
             saveMedicine(e) {  
                 e.preventDefault();  
                 let currentObj = this;  
+                //guardando en la base de datos
                 axiosClient.post('/medicine', {  
                     name: this.name,  
                     type: this.type,
                     stock: this.stock,
                     expiration: this.expiration  
                 })  
-                .then(function (response) {  
-                    return response.data, this.clear();  
-                })  
-                .catch(function (error) {  
-                    return error;  
-                });  
-            }  
+                    .then(function (response) {  
+                        //limpiando datos
+                        currentObj.name = '';
+                        currentObj.type = '';
+                        currentObj.stock = '';
+                        currentObj.expiration = null;
+                        
+                    })  
+                    .catch(function (error) {  
+                        return error;  
+                    }); 
+                    
+           
+            },
+            
+            
         },
-        clear(){
-            let currentObj = this;
-            return [
-                this.name = '',
-                this.type = '',
-                this.stock = 0,
-                this.expiration = null
-            ]
-
-        }
+      
 
     }  
 </script>  
