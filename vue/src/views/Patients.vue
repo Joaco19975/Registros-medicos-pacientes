@@ -206,9 +206,7 @@
     import VPagination from "@hennge/vue3-pagination";
     import "@hennge/vue3-pagination/dist/vue3-pagination.css";
     
-    
-
-    
+  
     export default {
       components: {
             Paginate,
@@ -241,50 +239,50 @@
                     return Math.ceil(this.datos.length / this.perPage);
                   }
              
-               
                 },
-              methods:{
-              deletePatient(dato){
-                if(confirm('Are you sure you want to delete this medicine? operation cant be undone !!')){
-                    //delete medicine
 
-                  }
-              
-                  //delete medicine confirmation
-                    return axiosClient.delete(`/patient/${dato.id}`)
-                                                                  .then((res) => {
-                                                                      this.mensajeSuccess = res.data.success;
-                                                                      return this.getPatients();
-                                                                    }).catch(error => {
-                                                                      this.mensajeError = error.response.data.message;;
-                                                                    })
-              },
-  
-              getPatients(){
-                //get patients
-                            axiosClient.get(`/patient`,{
-                                  params: {
-                                          buscador: this.buscador,
-                                    }
-                                  }).then(response => {
-                                          this.datos = response.data.data ;                      
-                                      }).catch(error => {
-                                              console.log(error);
-                                          });
-              },
+                  methods:{
+                  async deletePatient(dato){
+                    if(confirm('Are you sure you want to delete this medicine? operation cant be undone !!')){
+                        //delete medicine
 
-              searchPatients(){
-                //search
+                      }
+                  
+                      //delete medicine confirmation
+                        try {
+                            const res = await axiosClient.delete(`/patient/${dato.id}`);
+                            this.mensajeSuccess = res.data.success;
+                            return this.getPatients();
+                            } catch (error) {
+                            this.mensajeError = error.response.data.message;
+                            }
+                  },
+      
+                async  getPatients(){
+                    //get patients
+                    try {
+                      const response = await axiosClient.get(`/patient`,{
+                                              params: {
+                                                      buscador: this.buscador,
+                                                }
+                                              });
+                                              this.datos = response.data.data;
+                                          } catch (error) {
+                                            console.log(error);
+                                            }                     
+                  },            
 
-                //setTimeoutBuscador = 0 ;
-               clearTimeout(this.setTimeoutBuscador);
+                      searchPatients(){
+                        //search
+                        //setTimeoutBuscador = 0 ;
+                      clearTimeout(this.setTimeoutBuscador);
 
-               this.setTimeoutBuscador = setTimeout(this.getPatients, 360);
-              },
+                      this.setTimeoutBuscador = setTimeout(this.getPatients, 360);
+                      },
 
-            },
-         
-      } 
+                    },
+                
+          } 
 
     
   

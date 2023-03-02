@@ -163,11 +163,11 @@ const route = useRoute();
                             stock: this.stock,
                             expiration: this.expiration
                     }) .then(function (response) {
-                            // limpiando datos
-                            currentObj.name = '';
-                            currentObj.type = '';
-                            currentObj.stock = '';
-                            currentObj.expiration = null;
+                        
+                          name:  currentObj.name;
+                          type:  currentObj.type;
+                          stock: currentObj.stock;
+                          expiration:  currentObj.expiration;
 
                             currentObj.success = 2;
                         })
@@ -185,10 +185,10 @@ const route = useRoute();
                         })  
                             .then(function (response) {  
                                 //limpiando datos
-                                currentObj.name = '';
-                                currentObj.type = '';
-                                currentObj.stock = '';
-                                currentObj.expiration = null;
+                              name:  currentObj.name;
+                              type:  currentObj.type;
+                              stock: currentObj.stock;
+                              expiration: currentObj.expiration;
 
                                 currentObj.success = 1;
                                 
@@ -215,7 +215,7 @@ const route = useRoute();
                         alert('Stock is required');
                         return false;
                     }
-                    if (!this.birth_date) {
+                    if (!this.expiration) {
                         alert('Expiration field cannot be empty');
                         return false;
                     }

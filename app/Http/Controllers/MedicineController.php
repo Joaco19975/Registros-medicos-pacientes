@@ -24,14 +24,13 @@ class MedicineController extends Controller
             $filtro = $request->buscador;
 
             return MedicineResource::collection(Medicine::where('id_hospital', $user->id)
-                         ->where('name','LIKE' , '%'.$filtro.'%')
-                         ->orWhere('type', 'LIKE', '%'.$filtro.'%')
-                         ->paginate(10));
+                                    ->where('name','LIKE' , '%'.$filtro.'%')
+                                    ->orWhere('type', 'LIKE', '%'.$filtro.'%')
+                                    ->paginate(10));
 
         }
 
         return MedicineResource::collection(Medicine::where('id_hospital', $user->id)->paginate(10));
-        
     }
 
     /**
@@ -71,7 +70,17 @@ class MedicineController extends Controller
      */
     public function update(UpdateMedicineRequest $request, Medicine $medicine)
     {
+
       $medicine->update($request->validated());
+      
+      $registros = Patient_hospital_medicine::where('id_medicine', $medicine->id)->get();
+      // Luego, para cada registro recuperado, podría actualizar el nombre de la medicina:
+       
+       foreach ($registros as $registro) {
+           $registro->name_medicine = $medicine->name;
+           $registro->save();
+       }
+
       return new MedicineResource($medicine);
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Patient_hospital_medicine;
+use App\Models\Medicine;
+
 use App\Http\Requests\StoreRegistrationRequest;
 use App\Http\Resources\RegistrationResource;
 
@@ -16,21 +18,18 @@ class RegistrationController extends Controller
      */
     public function index(Request $request)
     {
-
         $user = $request->user();
 
         if($request->buscador){
             $filtro = $request->buscador;
 
             return RegistrationResource::collection(Patient_hospital_medicine::where('id_hospital', $user->id)
-                         ->where('name_patient','LIKE' , '%'.$filtro.'%')
-                         ->orWhere('name_medicine', 'LIKE', '%'.$filtro.'%')
-                         ->paginate(10));
-
+                                        ->where('name_patient','LIKE' , '%'.$filtro.'%')
+                                        ->orWhere('name_medicine', 'LIKE', '%'.$filtro.'%')
+                                        ->paginate(10));
         }
         
         return RegistrationResource::collection(Patient_hospital_medicine::where('id_hospital', $user->id)->paginate(10));
-        
     }
 
     /**
@@ -42,6 +41,11 @@ class RegistrationController extends Controller
     public function store(StoreRegistrationRequest $request)
     {
       $result = Patient_hospital_medicine::create($request->validated());
+
+            // Actualizar el stock del medicamento
+            $medicine = Medicine::findOrFail($request->id_medicine);
+            $medicine->stock -= $request->cant_medicine;
+            $medicine->save();
 
       return new RegistrationResource($result);
     }

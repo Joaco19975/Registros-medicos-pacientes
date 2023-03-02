@@ -93,6 +93,7 @@ import store from "../store";
                 this.getMedicines();
                 console.log("Mounted...");
                 
+                
             },
             methods:{
               /*deleteMedicine(dato){
@@ -114,10 +115,17 @@ import store from "../store";
 
                 let currentObj = this;
 
+              
                   //validacion
                   if (!this.validateForm()) {
                             return;
                 }
+
+                if (this.selectedMedicine.stock < this.cant_medicine) {
+                    alert('No hay suficientes medicamentos en stock para realizar la venta.');
+                    return;
+                }
+
 
                 axiosClient.post('/registration', {  
                     id_patient: this.selectedPatient.id,  
@@ -128,6 +136,8 @@ import store from "../store";
                     cant_medicine: this.cant_medicine,
                 }).then(response => {
                     currentObj.success = 1;
+
+                   
                     console.log(response);
                 });
                 

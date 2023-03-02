@@ -152,7 +152,7 @@
                       }
                   },
               mounted() {
-                this.registrations();
+                this.getRegistrations();
                   
               },
               methods:{
@@ -177,7 +177,7 @@
               },
 
   
-              registrations(){
+              getRegistrations(){
                 axiosClient.get('/registration', {
                   params: {
                           buscador: this.buscador
@@ -192,7 +192,7 @@
               searchRegister(){
 
                 clearTimeout(this.setTimeoutBuscador);
-                this.setTimeoutBuscador = setTimeout(this.registrations, 360);
+                this.setTimeoutBuscador = setTimeout(this.getRegistrations, 360);
 
                 },
 

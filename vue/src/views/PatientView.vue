@@ -107,7 +107,8 @@ import axiosClient from '../axios';
         mounted() {  
             console.log('Component mounted.');
 
-            this.id = this.$route.params.id;
+                this.id = this.$route.params.id;
+
                 if (this.id) {
 
                   this.fetchPatient(this.id);
@@ -155,20 +156,20 @@ import axiosClient from '../axios';
                             dni: this.dni,
                             birth_date: this.birth_date
                     }) .then(function (response) {
-                            // limpiando datos
-                            currentObj.name = '';
-                            currentObj.type = '';
-                            currentObj.stock = '';
-                            currentObj.expiration = null;
+                            
+                           fullname: currentObj.fullname;
+                           sex: currentObj.sex;
+                           dni: currentObj.dni;
+                           birth_date: currentObj.birth_date;
 
                             currentObj.success = 2;
                         })
-                        .catch(function (error) {
+                            .catch(function (error) {
 
-                            currentObj.success = 3;
+                                currentObj.success = 3;
 
-                            return error;
-                        });
+                                return error;
+                            });
 
                 }else{
                     //registro
@@ -178,6 +179,11 @@ import axiosClient from '../axios';
                     dni: this.dni,
                     birth_date: this.birth_date 
                     }).then(function (response) {  
+
+                           fullname:  currentObj.fullname;
+                           sex: currentObj.sex;
+                           dni: currentObj.dni;
+                           birth_date: currentObj.birth_date;
 
                                 currentObj.success = 1;
 

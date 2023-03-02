@@ -23,8 +23,6 @@ class PatientController extends Controller
         if($request->buscador){
             $filtro = $request->buscador;
 
-
-
             return PatientResource::collection(Patient::where('id_hospital', $user->id)
                          ->where('fullname','LIKE' , '%'.$filtro.'%')
                          ->orWhere('dni', 'LIKE', '%'.$filtro.'%')
@@ -33,8 +31,6 @@ class PatientController extends Controller
         }
              
         return PatientResource::collection(Patient::where('id_hospital', $user->id)->paginate(10) );
-      
-        
     }
 
     /**
@@ -94,8 +90,8 @@ class PatientController extends Controller
         // Obtenemos el valor de la clave primaria del modelo Medicine
         $patient_id = $patient->id;
 
-        // Verificamos si hay registros en la tabla Patient_hospital_medicine con el id_medicine igual al valor de la clave primaria del modelo Medicine
-        $patient_hospital_medicine = Patient_hospital_medicine::where('id_medicine', $patient_id)->get();
+        // Verificamos si hay registros en la tabla Patient_hospital_medicine con el id_patient igual al valor de la clave primaria del modelo Patient
+        $patient_hospital_medicine = Patient_hospital_medicine::where('id_patient', $patient_id)->get();
 
         // Si hay registros, lanzamos una excepción y no borramos el registro de Medicine
         if ($patient_hospital_medicine->count() > 0) {

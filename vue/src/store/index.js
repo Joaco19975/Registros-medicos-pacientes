@@ -1,6 +1,8 @@
 import {createStore} from 'vuex';
 import axiosClient from '../axios';
 
+//DATOS TEMPORALES
+/*
 const tmpPatients = [
     
         {
@@ -56,6 +58,7 @@ const tmpMedicines = [
         updated_at:"2019-12-12",
     }
 ];
+*/
 
 
 const store = createStore({
@@ -65,8 +68,8 @@ const store = createStore({
             data:{},
             token:sessionStorage.getItem('TOKEN'),
         },
-        medicines:[...tmpMedicines],
-        patients:[...tmpPatients],
+     // datos temporales   medicines:[...tmpMedicines],
+     // datos temporales  patients:[...tmpPatients],
     },
     getters:{},
 

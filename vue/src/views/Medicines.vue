@@ -187,27 +187,12 @@
       </div>
 
     </div>
-    <div class="flex justify-center">
-      <VueTailwindPagination
-        :totalPages="totalPages"
-        :currentPage="currentPage"
-        :showPages="showPages"
-        :perPage="perPage"
-        @page-changed="changePage"
-      />
-    </div>
+
   </div>
 </div>
-      
-    
-    
-
-   
-    
 
   </PageComponent>
   
-
   </template>
   
   <script >
@@ -237,7 +222,6 @@
                       mensajeSuccess:null, 
                       perPage: 5, // Cantidad de elementos por página
                       currentPage: 1 // Página actual
-                  
                     }
                 },  
                 
@@ -261,37 +245,34 @@
                   },
             methods:{
             
-              
-              
-              deleteMedicine(dato){
+              async deleteMedicine(dato){
                 if(confirm('Are you sure you want to delete this medicine? operation cant be undone !!')){
                     //delete medicine
 
                   }
               
-                    return axiosClient.delete(`/medicine/${dato.id}`)
-                              .then((res) => {
-                                this.mensajeSuccess = res.data.success;
-                                return this.medicines()
-                              }).catch(error => {
-                                this.mensajeError = error.response.data.message;
-                              })
+                    try {
+                          const res = await axiosClient.delete(`/medicine/${dato.id}`);
+                          this.mensajeSuccess = res.data.success;
+                          return this.getMedicines();
+                          } catch (error) {
+                            this.mensajeError = error.response.data.message;
+                            }
                   
 
               },
 
-              getMedicines(){
-                return axiosClient.get('/medicine', {
-                  params: {
-                          buscador: this.buscador
-                  }
-                   }).then(response => {
-
-                              this.datos = response.data.data ;
-                              
-                          }).catch(error => {
-                                  console.log(error);
-                              });
+              async getMedicines(){
+                try {
+                      const response = await axiosClient.get('/medicine', {
+                            params: {
+                            buscador: this.buscador
+                            }
+                          });
+                              this.datos = response.data.data;
+                        } catch (error) {
+                          console.log(error);
+                          }
               },
 
               searchMedicines(){
@@ -300,9 +281,6 @@
                   this.setTimeoutBuscador = setTimeout(this.getMedicines, 360);
 
                   },
-
-         
-
             }
     } 
 
