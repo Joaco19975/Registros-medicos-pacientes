@@ -8,7 +8,16 @@
             </div>
 
         </template>
-        <pre>{{ model }}</pre>
+        <div v-if="success == 1" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
+            <p class="font-bold">Success!</p>
+            <p class="text-sm">The medicine has been created successfully.</p>
+        </div>
+
+        <div v-if="success == 2" class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
+            <p class="font-bold">Success!</p>
+            <p class="text-sm">The medicine has been updated successfully.</p>
+        </div>
+
         <form  ref="form" @submit.prevent="saveMedicine">
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -103,45 +112,118 @@ const route = useRoute();
     export default {  
         mounted() {  
             console.log('Component mounted.');
-            console.log((this.$route.params.id));
-          
-              
+            this.id = this.$route.params.id;
+                if (this.id) {
+                this.fetchMedicine(this.id);
+                }         
         },  
         data() {  
-            return {  
-                name: '',
-                type: '',
-                stock: '',
-                expiration: null
-             
+
+                  return {  
+                        id:null,
+                        name: '',
+                        type: '',
+                        stock: '',
+                        expiration: null,
+                        success: null
+                    };  
                 
-            };  
         },  
         methods: {  
+
+            fetchMedicine(id) {
+                        axiosClient.get(`/medicine/${id}`).then((response) => {
+        
+                            this.name = response.data.data.name;
+                            this.type = response.data.data.type;
+                            this.stock = response.data.data.stock;
+                            this.expiration = response.data.data.expiration;
+
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+                    },
+
             saveMedicine(e) {  
                 e.preventDefault();  
-                let currentObj = this;  
-                //guardando en la base de datos
-                axiosClient.post('/medicine', {  
-                    name: this.name,  
-                    type: this.type,
-                    stock: this.stock,
-                    expiration: this.expiration  
-                })  
-                    .then(function (response) {  
-                        //limpiando datos
-                        currentObj.name = '';
-                        currentObj.type = '';
-                        currentObj.stock = '';
-                        currentObj.expiration = null;
-                        
-                    })  
-                    .catch(function (error) {  
-                        return error;  
-                    }); 
-                    
-           
+                
+                let currentObj = this; 
+                
+                //validacion
+                if (!this.validateForm()) {
+                            return;
+                }
+
+
+                if(this.id){
+                    //editando
+                    axiosClient.put(`/medicine/${this.id}`, {
+                            name: this.name,
+                            type: this.type,
+                            stock: this.stock,
+                            expiration: this.expiration
+                    }) .then(function (response) {
+                            // limpiando datos
+                            currentObj.name = '';
+                            currentObj.type = '';
+                            currentObj.stock = '';
+                            currentObj.expiration = null;
+
+                            currentObj.success = 2;
+                        })
+                        .catch(function (error) {
+                            return error;
+                        });
+
+                }else{
+                       //creando
+                            axiosClient.post('/medicine', {  
+                            name: this.name,  
+                            type: this.type,
+                            stock: this.stock,
+                            expiration: this.expiration  
+                        })  
+                            .then(function (response) {  
+                                //limpiando datos
+                                currentObj.name = '';
+                                currentObj.type = '';
+                                currentObj.stock = '';
+                                currentObj.expiration = null;
+
+                                currentObj.success = 1;
+                                
+                            })  
+                            .catch(function (error) {  
+                                return error;  
+                            }); 
+
+                }
+         
             },
+
+            validateForm() {
+
+                    if (!this.name || this.name.length < 3) {
+                        alert('Name must be at least 3 characters long');
+                        return false;
+                    }
+                    if (!this.type || this.type.length < 3) {
+                        alert('Type must be at least 3 characters long');
+                        return false;
+                    }
+                    if (!this.stock || this.stock == 0) {
+                        alert('Stock is required');
+                        return false;
+                    }
+                    if (!this.birth_date) {
+                        alert('Expiration field cannot be empty');
+                        return false;
+                    }
+                    return true;
+             },
+
+
+            
             
             
         },

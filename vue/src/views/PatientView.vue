@@ -8,6 +8,18 @@
             </div>
 
         </template>
+
+        <div v-if="success == 1" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
+            <p class="font-bold">Success!</p>
+            <p class="text-sm">The patient has been created successfully.</p>
+        </div>
+
+        <div v-if="success == 2" class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4" role="alert">
+            <p class="font-bold">Success!</p>
+            <p class="text-sm">The patient has been updated successfully.</p>
+        </div>
+
+
         <form @submit.prevent="savePatient">
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -93,45 +105,114 @@ import axiosClient from '../axios';
 
     export default {  
         mounted() {  
-            console.log('Component mounted.')  
+            console.log('Component mounted.');
+
+            this.id = this.$route.params.id;
+                if (this.id) {
+
+                  this.fetchPatient(this.id);
+
+                }      
         },  
         data() {  
             return {  
+              id: null,
               fullname: '',  
               sex: '',  
               dni: '' ,
-              birth_date: ''
+              birth_date: '',
+              success: null,
             };  
         },  
         methods: {  
+
+            fetchPatient(id) {
+                        axiosClient.get(`/patient/${id}`).then((response) => {
+        
+                            this.fullname = response.data.data.fullname;
+                            this.sex = response.data.data.sex;
+                            this.dni = response.data.data.dni;
+                            this.birth_date = response.data.data.birth_date;
+
+                        }).catch((error) => {
+                            console.log(error);
+                        });
+                    },
+
             savePatient(e) {  
                 e.preventDefault();  
                 let currentObj = this;  
-                axiosClient.post('/patient', {  
+
+                if(!this.validateForm()){
+                    return;
+                }
+
+                if(this.id){
+                    //editando
+                    axiosClient.put(`/patient/${this.id}`, {
+                            fullname: this.fullname,
+                            sex: this.sex,
+                            dni: this.dni,
+                            birth_date: this.birth_date
+                    }) .then(function (response) {
+                            // limpiando datos
+                            currentObj.name = '';
+                            currentObj.type = '';
+                            currentObj.stock = '';
+                            currentObj.expiration = null;
+
+                            currentObj.success = 2;
+                        })
+                        .catch(function (error) {
+
+                            currentObj.success = 3;
+
+                            return error;
+                        });
+
+                }else{
+                    //registro
+                    axiosClient.post('/patient', {  
                     fullname: this.fullname,  
                     sex: this.sex,
                     dni: this.dni,
                     birth_date: this.birth_date 
-                })  
-                .then(function (response) {  
-                    return response.data;  
-                })  
-                .catch(function (error) {  
-                    return error;  
-                });  
-            }  
+                    }).then(function (response) {  
+
+                                currentObj.success = 1;
+
+                                return response.data;  
+                            }).catch(function (error) {  
+                                return error;  
+                            });    
+                }
+               
+            },  
+
+            validateForm() {
+
+                    if (!this.fullname || this.fullname.length < 3) {
+                        alert('Fullname must be at least 3 characters long');
+                        return false;
+                    }
+                    if (!this.sex) {
+                        alert('Sex field cannot be empty');
+                        return false;
+                    }
+                    if (!this.dni || this.dni.length < 8) {
+                        alert('DNI must be at least 8 characters long');
+                        return false;
+                    }
+                    if (!this.birth_date) {
+                        alert('Birthdate field cannot be empty');
+                        return false;
+                    }
+                    return true;
+
+                    },
+
+
         },
-        clear(){
-            let currentObj = this;
-            return [
-                this.fullname = '',
-                this.sex = '',
-                this.dni = '',
-                this.birth_date = ''
-            ]
-
-        }
-
     }  
 
 </script>

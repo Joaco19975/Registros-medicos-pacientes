@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Patient;
 use App\Models\Medicine;
+use App\Models\Ong_member;
 use App\Models\Patient_hospital_medicine;
 use Illuminate\Support\Facades\Auth;
 
 
-class AuthController extends Controller
+class MembersController extends Controller
 {
     // index, show y destroy.
          
@@ -27,7 +28,7 @@ class AuthController extends Controller
     
  
 
-   /* public function getRegistration(){
+    public function getRegistration(){
 
         $id = Auth::id();
         $hospital = User::find($id);
@@ -54,12 +55,9 @@ class AuthController extends Controller
     }
 
     public function getMedicinesHospital(Request $request){
-
-
+        
             $id = Auth::id();
             $hospital = User::find($id);
-          //  $filter = $request->buscador;
-
             
             $medicine = $hospital->medicines;
            
@@ -73,7 +71,7 @@ class AuthController extends Controller
         $patients = $hospital->patients;
 
         return response()->json($patients);
-    }*/
+    }
 
     public function hospitalsPatient(){
        return $hospitals = Hospital::with('patients')->get();

@@ -16,7 +16,7 @@ class Patient_hospital_medicine extends Model
 
     /*id	id_hospital	id_patient	id_medicine	created_at	updated_at	syntoms	*/
 
-    protected $fillable = ['id_hospital', 'id_patient', 'id_medicine','syntoms', 'name_patient', 'name_medicine'];
+    protected $fillable = ['id_hospital', 'id_patient', 'id_medicine','name_patient','name_medicine','syntoms', 'cant_medicine'];
 
     public function hospital(){
         return $this->belongsTo(User::class);

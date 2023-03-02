@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\RegistrationController;
+
 
 
 
@@ -27,15 +29,18 @@ Route::middleware('auth:sanctum')->group( function () {
 
     Route::resource('/medicine', MedicineController::class);
     Route::resource('/patient', PatientController::class);
+    Route::resource('/registration', RegistrationController::class);
 
     Route::post('/logout', [AuthController::class, 'logout'] );
 
-    Route::post('/registration', [AuthController::class, 'postRegistration'] );
+   /* Route::post('/registration', [AuthController::class, 'postRegistration'] );
     Route::get('/registrations', [AuthController::class, 'getRegistration'] );
+    Route::delete('/registration/{id}', [AuthController::class, 'deleteRegistration']);*/
 
     
-    Route::get('/hospital/patients', [AuthController::class, 'getPatientsHospital']);
+  /*  Route::get('/hospital/patients', [AuthController::class, 'getPatientsHospital']);
     Route::get('/hospital/medicines', [AuthController::class, 'getMedicinesHospital']);
+    Route::get('/hospital/registrations', [AuthController::class, 'getRegistration']);*/
 });
 
 Route::post('/register', [AuthController::class, 'register']);

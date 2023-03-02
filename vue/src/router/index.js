@@ -14,8 +14,10 @@ import DefaultLayout from '../components/DefaultLayout.vue'
 import AuthLayout from '../components/AuthLayout.vue'
 import store from '../store';
 
+
 const routes = [
   {
+    
     path: "/dashboard",
     component: DefaultLayout,
     meta: { requiresAuth: true },
