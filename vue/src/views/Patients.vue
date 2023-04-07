@@ -242,6 +242,7 @@
                 },
 
                   methods:{
+                    
                   async deletePatient(dato){
                     if(confirm('Are you sure you want to delete this medicine? operation cant be undone !!')){
                         //delete medicine

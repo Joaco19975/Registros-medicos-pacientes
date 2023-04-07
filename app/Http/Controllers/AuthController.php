@@ -12,79 +12,17 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    // index, show y destroy.
-         
- 
-
+  
     public function index(){
      /*   $patient = Patient::first();
       return  $patient->hospital;
       */
 
-  
-
     }
     
- 
-
-   /* public function getRegistration(){
-
-        $id = Auth::id();
-        $hospital = User::find($id);
-
-        $registrations = $hospital->patient_hospital_medicines;
-       
-        
-        return response()->json($registrations);
-    }
-
-    public function postRegistration(Request $request){
-
-        $create = Patient_hospital_medicine::create([
-                       
-            'id_hospital' => Auth::id(),
-            'id_patient' => $request->id_patient,
-            'id_medicine' => $request->id_medicine,
-            'syntoms' => $request->syntoms,
-            'name_patient' => $request->name_patient,
-            'name_medicine' => $request->name_medicine
-
-        ]);
-
-    }
-
-    public function getMedicinesHospital(Request $request){
-
-
-            $id = Auth::id();
-            $hospital = User::find($id);
-          //  $filter = $request->buscador;
-
-            
-            $medicine = $hospital->medicines;
-           
-            return response()->json($medicine);
-    }
-
-
-    public function getPatientsHospital(){
-        $id = Auth::id();
-        $hospital = User::find($id);
-        $patients = $hospital->patients;
-
-        return response()->json($patients);
-    }*/
 
     public function hospitalsPatient(){
        return $hospitals = Hospital::with('patients')->get();
-
-    }
-
-    public function show(){
-
-    }
-    
-    public function destroy(){
 
     }
 

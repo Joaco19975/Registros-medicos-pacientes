@@ -156,23 +156,22 @@
                   
               },
               methods:{
-              deleteRegister(dato){
+
+            async  deleteRegister(dato){
                 if(confirm('Are you sure you want to delete this medicine? operation cant be undone !!')){
                     //delete medicine
 
                   }
 
                   //delete
-                  return axiosClient.delete(`/registration/${dato.id}`)
-                        .then((res) => {
-                            return this.registrations()
-
-                            }).catch(error => {
-                              this.mensajeError = error.response.data.error;
-
-                            })
-
-                      
+                  try {
+                    const res =  await axiosClient.delete(`/registration/${dato.id}`)
+                    this.mensajeSuccess = res.data.success;
+                    return this.getRegistrations();
+                  } catch (error) {
+                    this.mensajeError = error.response.data.error;   
+                  }
+                                   
             
               },
 
